@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的-->
+ <mapper namespace="mapping.TeacherMapper">
+ 
+ <!-- 自定义返回结果集 -->
+ 	<resultMap id="teacherMap" type="TeacherCourse">
+         <id property="teacherId" column="teacherId" javaType="java.lang.Integer"></id>
+       	<result property="courseName" column="courseName" javaType="java.lang.String"></result>
+        <result property="amount" column="amount" javaType="java.lang.Integer"></result>
+    </resultMap>
+    
+    
+    
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+         insert into teacher_course (teacherId,courseName,amount) values (#{teacherId},#{courseName},#{amount})
+     </insert>
+     
+   <update id="update" >
+       update teacher_course set courseName=#{courseName},amount=#{amount} where teacherId=#{teacherId}
+     </update>
+     
+     <delete id="delete" parameterType="int">
+      delete from teacher_course where teacherId=#{teacherId}  
+     </delete>
+     
+     <select id="selectUserById" parameterType="int" resultMap="teacherMap">
+      select * from teacher_course where teacherId=#{teacherId}
+     </select>
+     
+     <select id="selectAllUser" resultMap="teacherMap">
+    select * from teacher_course
+     </select>
+    
+</mapper>
